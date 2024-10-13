@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UPI Payment</title>
+</head>
+<body>
+    <button id="pay-button">Pay ₹50</button>
+
+    <script src="https://pay.google.com/gp/p/js/pay.js" async></script>
+    <script>
+        const paymentsClient = new google.payments.api.PaymentsClient({environment: 'TEST'});
+
+        const paymentDataRequest = {
+            apiVersion: 2,
+            apiVersionMinor: 0,
+            allowedPaymentMethods: [{
+                type: 'CARD',
+                parameters: {
+                    allowedAuthMethods: ['PAN_ONLY', 'CRYPTOGRAM_3DS'],
+                    allowedCardNetworks: ['MASTERCARD', 'VISA']
+                },
+                tokenizationSpecification: {
+                    type: 'PAYMENT_GATEWAY',
+                    parameters: {
+                        gateway: 'example',
+                        merchantId: 'your-merchant-id'
+                    }
+                }
+            }],
+            transactionInfo: {
+                totalPriceStatus: 'FINAL',
+                totalPriceLabel: 'Total',
+                totalPrice: '50.00',
+                currencyCode: 'INR',
+                countryCode: 'IN'
+            },
+            merchantInfo: {
+                merchantId: 'your-merchant-id',
+                merchantName: 'Your Merchant Name'
+            }
+        };
+
+        document.getElementById('pay-button').addEventListener('click', function() {
+            paymentsClient.loadPaymentData(paymentDataRequest)
+                .then(function(paymentData) {
+                    console.log('Payment data received:', paymentData);
+                    // Handle successful payment here
+                })
+                .catch(function(err) {
+                    console.error('Error loading payment data:', err);
+                });
+        });
+    </script>
+</body>
+</html>
