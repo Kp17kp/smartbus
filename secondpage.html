@@ -72,6 +72,7 @@
             <p><strong>FROM:</strong> <span id="from"></span></p>
             <p><strong>TO:</strong> <span id="to"></span></p>
             <p><strong>FARE:</strong> <span id="fare"></span></p>
+            <p><strong>TIME:<span id="time"></span></strong></p>
         </div>
         <div class="payment">
             <h2>Payment Details</h2>
@@ -101,6 +102,12 @@
             document.getElementById('to').textContent = to;
             document.getElementById('fare').textContent = amount;
 
+
+            
+            const now = new Date();
+            document.getElementById('time').textContent = now; 
+
+            
             // Display confirmation message
             document.getElementById('confirmationMessage').textContent = `Please select a payment method to pay ₹${amount}. The amount will be filled automatically in your payment app. After payment, your ticket will be generated.`;
         }
