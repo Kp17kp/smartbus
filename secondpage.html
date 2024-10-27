@@ -90,12 +90,16 @@
 
 
     <script>
-        function displayTicket() {
-            const urlParams = new URLSearchParams(window.location.search);
+
+
+const urlParams = new URLSearchParams(window.location.search);
             const from = urlParams.get('from');
             const to = urlParams.get('to');
             const amount = urlParams.get('amount').replace('₹', ''); // Remove ₹ symbol from amount
             const upiId = "singamsubashsjsa@okaxis"; // Replace with your actual UPI ID
+
+
+function displayTicket() {
 
             // Set the ticket details
             document.getElementById('from').textContent = from;
@@ -103,11 +107,10 @@
             document.getElementById('fare').textContent = amount;
 
 
-            
+
             const now = new Date();
             document.getElementById('time').textContent = now; 
 
-            
             // Display confirmation message
             document.getElementById('confirmationMessage').textContent = `Please select a payment method to pay ₹${amount}. The amount will be filled automatically in your payment app. After payment, your ticket will be generated.`;
         }
@@ -136,7 +139,13 @@
                     url = `phonepe://pay?pa=${encodedUPIId}&pn=Krishnapraveen%20S&mc=&tid=&tr=&tn=Payment%20for%20Ticket%20Booking&am=${encodedAmount}&cu=INR`;
                     break;
                 case 'Paytm':
-                    url = `paytm://pay?pa=${encodedUPIId}&pn=Krishnapraveen%20S&mc=&tid=&tr=&tn=Payment%20for%20Ticket%20Booking&am=${encodedAmount}&cu=INR`;
+
+                if (amount !== "Route not available" && from && to) {
+                // Redirect to payment page with query parameters
+                url= `thirdpage.html?from=${encodeURIComponent(from)}&to=${encodeURIComponent(to)}&amount=${encodeURIComponent(amount)}`;
+            } else {
+                alert("Please select valid FROM and TO locations.");
+            }
                     break;
             }
 
