@@ -1,9 +1,39 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ticket Confirmation</title>
     <style>
-        /* Your CSS styling here */
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: whitesmoke;
+            font-family: Arial, sans-serif; /* Added a font for better readability */
+        }
+
+        .container {
+            background-color: white;
+            border-radius: 8px; /* Rounded corners for the container */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+            max-width: 500px; /* Maximum width for the container */
+            margin: 50px auto; /* Centering the container with margin */
+            padding: 20px; /* Padding inside the container */
+            text-align: center; /* Center text alignment */
+        }
+
+        h1 {
+            color: #333; /* Darker color for the heading */
+        }
+
+        p {
+            color: #555; /* Slightly lighter color for paragraph text */
+            margin: 10px 0; /* Margin for spacing between paragraphs */
+        }
+
+        span {
+            font-weight: bold; /* Bold text for important information */
+        }
     </style>
 </head>
 <body>
@@ -22,8 +52,10 @@
         document.getElementById('to-location').textContent = urlParams.get('to');
         document.getElementById('amount-paid').textContent = urlParams.get('amount');
 
+        const now = new Date();
+        
         // Generate a simple ticket ID (in a real scenario, this would be done on the server)
-        document.getElementById('ticket-id').textContent = 'TKT' + Math.floor(Math.random() * 100000);
+        document.getElementById('ticket-id').textContent = 'TKT' + Math.floor(Math.random() * 100000) + " " + now.toLocaleString();
     </script>
 </body>
 </html>
